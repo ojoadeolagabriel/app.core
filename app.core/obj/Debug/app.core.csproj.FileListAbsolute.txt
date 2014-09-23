@@ -1,0 +1,5 @@
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\app.core\bin\Debug\app.core.dll
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\app.core\bin\Debug\app.core.pdb
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\app.core\obj\Debug\app.core.csprojResolveAssemblyReference.cache
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\app.core\obj\Debug\app.core.dll
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\app.core\obj\Debug\app.core.pdb

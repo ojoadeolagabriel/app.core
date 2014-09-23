@@ -1,0 +1,7 @@
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Debug\appcore.test.exe
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Debug\appcore.test.pdb
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Debug\app.core.dll
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Debug\app.core.pdb
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\obj\Debug\appcore.test.csprojResolveAssemblyReference.cache
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\obj\Debug\appcore.test.exe
+c:\users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\obj\Debug\appcore.test.pdb
