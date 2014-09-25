@@ -19,8 +19,9 @@ namespace app.core.util.configuration
         /// <param name="key"></param>
         /// <param name="group"></param>
         /// <param name="defaultValue"></param>
+        /// <param name="run"></param>
         /// <returns></returns>
-        public static T Read(string key,string group = null,T defaultValue = default (T))
+        public static T Read(string key, string group = null, T defaultValue = default (T), Action<Object> run = null)
         {
             try
             {

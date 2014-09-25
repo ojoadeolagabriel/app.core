@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="data\Classmap.cs" />
     <Compile Include="data\common\CoreDao.cs" />
     <Compile Include="data\common\ICoreDao.cs" />
     <Compile Include="exception.management\Test.cs" />
