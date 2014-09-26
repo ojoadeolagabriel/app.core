@@ -47,7 +47,5 @@ namespace app.core.data.common
                 _handler = ReadHandlerBuilder.Load(xmlData);
             }
         }
-
-        
     }
 }
