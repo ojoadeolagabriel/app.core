@@ -28,6 +28,12 @@ namespace app.core.util.reflection
     /// </summary>
     public static class ReflectionHelper
     {
+        public static Type GetTypeInNamespace(string @namespace)
+        {
+            var type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsClass && t.Namespace == @namespace);
+            return type;
+        }
+
         #region GetMember
         /// <summary>
         /// Gets a member by it's expression usage.

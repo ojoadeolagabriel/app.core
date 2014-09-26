@@ -3,3 +3,5 @@ c:\users\adeola\documents\visual studio 2013\Projects\app.core\app.core\bin\Debu
 c:\users\adeola\documents\visual studio 2013\Projects\app.core\app.core\obj\Debug\app.core.csprojResolveAssemblyReference.cache
 c:\users\adeola\documents\visual studio 2013\Projects\app.core\app.core\obj\Debug\app.core.dll
 c:\users\adeola\documents\visual studio 2013\Projects\app.core\app.core\obj\Debug\app.core.pdb
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\app.core\bin\Debug\log4net.dll
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\app.core\bin\Debug\log4net.xml

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace app.core.data.common
+namespace app.core.data.common.contract
 {
-    public interface ICoreDao<TId>
+    public interface IEntity
     {
     }
 }
