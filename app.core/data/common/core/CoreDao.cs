@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
+﻿using System.IO;
 using System.Xml.Linq;
 using app.core.data.common.builder;
 using app.core.data.common.contract;
 
-namespace app.core.data.common
+namespace app.core.data.common.core
 {
     /// <summary>
     /// CoreDao Class
     /// </summary>
     public class CoreDao<TId, TEntity> : ICoreDao<TId, TEntity>
-        where TEntity : Entity<TId>
+        where TEntity : Entity<TId, TEntity>
     {
         ///
         private IDatabaseSourceTypeHandler _handler;
@@ -67,7 +61,7 @@ namespace app.core.data.common
 
         public void Update(TEntity entity)
         {
-            
+
         }
 
         public void Delete(TEntity entity)

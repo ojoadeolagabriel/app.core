@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using app.core.data.common;
+using app.core.data.common.core;
 using appcore.test.dto;
 
 namespace appcore.test.dao

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dao\UserDao.cs" />
+    <Compile Include="dto\Institution.cs" />
     <Compile Include="dto\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

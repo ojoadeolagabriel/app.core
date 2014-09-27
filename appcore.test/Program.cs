@@ -6,6 +6,7 @@ using app.core.exception.management;
 using app.core.security.otp;
 using app.core.util.reflection;
 using appcore.test.dao;
+using appcore.test.dto;
 
 namespace appcore.test
 {
@@ -13,6 +14,8 @@ namespace appcore.test
     {
         static void Main(string[] args)
         {
+            var user = new User();
+
             var otp = new OTP(2);
 
             var data = otp.GetCurrentOtp();
