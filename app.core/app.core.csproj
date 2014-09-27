@@ -55,6 +55,11 @@
     <Compile Include="data\handler\OracleHandler.cs" />
     <Compile Include="exception.management\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="security\otp\hmacsha\hmacsha1.cs" />
+    <Compile Include="security\otp\hmacsha\memutil.cs" />
+    <Compile Include="security\otp\hmacsha\sha1.cs" />
+    <Compile Include="security\otp\OTP.cs" />
+    <Compile Include="security\otp\OTPCounter.cs" />
     <Compile Include="util\configuration\ConfigurationReader.cs" />
     <Compile Include="util\reflection\ReflectionHelper.cs" />
   </ItemGroup>
@@ -62,7 +67,6 @@
     <Folder Include="data\dao\" />
     <Folder Include="data\dto\" />
     <Folder Include="exception.management\code\" />
-    <Folder Include="security\" />
     <Folder Include="web\" />
   </ItemGroup>
   <ItemGroup>
