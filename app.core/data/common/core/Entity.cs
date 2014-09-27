@@ -27,6 +27,12 @@ namespace app.core.data.common.core
             get { return new EntityColumnSummary { MapColumns = MapColumns, PrimaryKeyInfo = PrimaryKeyInfo }; }
         }
 
+        public string TableName { get; set; }
+        public void OverrideTablename(string schema)
+        {
+            TableName = schema;
+        }
+
         public TId Id { get; private set; }
 
         protected void SetId(TId id)

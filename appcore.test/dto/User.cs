@@ -21,6 +21,8 @@ namespace appcore.test.dto
 
         public User()
         {
+            OverrideTablename("tbl_user");
+
             PrimaryKey(c => c.Id);
             Map(c => c.Username).ColumnDescription("user_name").MaxLength(10);
             Map(c => c.EmailAddress).ColumnDescription("email").MaxLength(10);

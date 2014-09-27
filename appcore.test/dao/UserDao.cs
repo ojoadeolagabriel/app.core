@@ -16,6 +16,7 @@ namespace appcore.test.dao
         public UserDao(string databaseUnit)
             : base(databaseUnit)
         {
+
         }
     }
 }

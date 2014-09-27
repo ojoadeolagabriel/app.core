@@ -1,11 +1,11 @@
 ﻿using System;
-using app.core.data.common.core;
 
-namespace app.core.data.common.contract
+namespace app.core.data.common.builder.contract
 {
     public interface IDatabaseSourceTypeHandler
     {
         string DatabaseUnit { get; set; }
         String ConnectionString { get; set; }
+        string[] IgnoreTablePrefixes { get; set; }
     }
 }

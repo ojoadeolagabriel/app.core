@@ -2,6 +2,7 @@
 using System.IO;
 using System.Xml.Linq;
 using app.core.data.common.builder;
+using app.core.data.common.builder.contract;
 using app.core.data.common.contract;
 
 namespace app.core.data.common.core
@@ -36,12 +37,7 @@ namespace app.core.data.common.core
         private void ReadHandlerConfiguration()
         {
             if (_handler != null) return;
-
-            var xmlConfig = @"db_config.xml";
-            xmlConfig = Path.GetFullPath(xmlConfig);
-
-            var xmlData = XDocument.Load(xmlConfig);
-            _handler = DatasourceTypeManager.Load(xmlData);
+            _handler = DataSourceTypeManager.ReadXmlConfiguration(DatabaseUnit);
         }
 
         /// <summary>
@@ -57,6 +53,8 @@ namespace app.core.data.common.core
             var primaryKey = entity.EntityInfo.PrimaryKeyInfo.columnDescription;
             //get columns
             var otherColumns = entity.EntityInfo.MapColumns;
+            //select query
+            var selectQuery = SpBuilder.RetreiveUniqueSp(entity.SchemaName, _handler.IgnoreTablePrefixes);
 
 
             return entity;

@@ -14,18 +14,8 @@ namespace appcore.test
     {
         static void Main(string[] args)
         {
-            var user = new User();
-
-            var otp = new OTP(2);
-
-            var data = otp.GetCurrentOtp();
-            var data2 = otp.GetCurrentOtp();
-
-            var dao = new UserDao("");
-            dao.RetreiveById(0);
-
-            var propertyInfo = ReflectionHelper<Test>.GetProperty((c) => c.FirstName);
-            ReflectionHelper<Test>.GetMethod((c) => c.Fullname(""));
+            var dao = new UserDao(null);
+            dao.RetreiveById(1);
         }
     }
 }
