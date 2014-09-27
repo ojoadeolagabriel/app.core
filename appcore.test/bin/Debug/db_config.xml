@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <audittrail enabled=""/>
+  <autogenerate sp="0" views="0"/>
+  <handler type="MsSql"/>
+</configuration>

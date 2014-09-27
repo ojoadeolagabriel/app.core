@@ -31,7 +31,7 @@ namespace app.core.data.common.builder
                         var databaseSourceTypeHanderName = handlerElem.Attribute("type").Value;
                         if (!string.IsNullOrEmpty(databaseSourceTypeHanderName))
                         {
-                            var type = ReflectionHelper.GetTypeInNamespace("app.core.data.handler." + databaseSourceTypeHanderName);
+                            var type = ReflectionHelper.GetTypeInNamespace("app.core.data.handler", databaseSourceTypeHanderName);
                             var handler = (IDatabaseSourceTypeHandler)Activator.CreateInstance(type);
                             return handler;
                         }
@@ -43,7 +43,7 @@ namespace app.core.data.common.builder
                 //do nothing
             }
 
-            var deftype = ReflectionHelper.GetTypeInNamespace("app.core.data.handler.MsSql");
+            var deftype = ReflectionHelper.GetTypeInNamespace("app.core.data.handler", "MsSql");
             var defhandler = (IDatabaseSourceTypeHandler)Activator.CreateInstance(deftype);
             return defhandler;
         }

@@ -28,9 +28,9 @@ namespace app.core.util.reflection
     /// </summary>
     public static class ReflectionHelper
     {
-        public static Type GetTypeInNamespace(string @namespace)
+        public static Type GetTypeInNamespace(string @namespace, string name)
         {
-            var type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsClass && t.Namespace == @namespace);
+            var type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsClass && t.Namespace == @namespace && t.Name.Contains(name));
             return type;
         }
 

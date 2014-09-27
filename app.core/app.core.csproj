@@ -61,6 +61,7 @@
   <ItemGroup>
     <Folder Include="data\dao\" />
     <Folder Include="data\dto\" />
+    <Folder Include="exception.management\code\" />
     <Folder Include="security\" />
     <Folder Include="web\" />
   </ItemGroup>
@@ -68,7 +69,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\db_config%27.xml" />
+    <Content Include="resources\db_config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -13,9 +14,10 @@ namespace app.core.data.common
     /// <summary>
     /// CoreDao Class
     /// </summary>
-    public class CoreDao<TId, TEntity> : ICoreDao<TId, TEntity> 
+    public class CoreDao<TId, TEntity> : ICoreDao<TId, TEntity>
         where TEntity : Entity<TId>
     {
+        ///
         private IDatabaseSourceTypeHandler _handler;
 
         /// <summary>
@@ -40,12 +42,37 @@ namespace app.core.data.common
         {
             if (_handler != null) return;
 
-            const string xmlConfig = "db_config.xml";
-            if (File.Exists(xmlConfig))
-            {
-                var xmlData = XDocument.Load(xmlConfig);
-                _handler = ReadHandlerBuilder.Load(xmlData);
-            }
+            var xmlConfig = @"db_config.xml";
+            xmlConfig = Path.GetFullPath(xmlConfig);
+
+            var xmlData = XDocument.Load(xmlConfig);
+            _handler = ReadHandlerBuilder.Load(xmlData);
+        }
+
+        public TEntity RetreiveById(TId id)
+        {
+            //build sp
+            return null;
+        }
+
+        public TEntity RetreiveAll()
+        {
+            return null;
+        }
+
+        public TEntity Save(TEntity entity)
+        {
+            return null;
+        }
+
+        public void Update(TEntity entity)
+        {
+            
+        }
+
+        public void Delete(TEntity entity)
+        {
+
         }
     }
 }
