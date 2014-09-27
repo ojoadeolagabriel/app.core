@@ -28,6 +28,12 @@ namespace app.core.util.reflection
     /// </summary>
     public static class ReflectionHelper
     {
+        public static bool IsTypeCollection(Type obj)
+        {
+            return obj.GetInterfaces()
+                .Any(iface => iface.GetGenericTypeDefinition() == typeof(ICollection<>));
+        }
+
         public static Type GetTypeInNamespace(string @namespace, string name)
         {
             var type = Assembly.GetExecutingAssembly().GetTypes().FirstOrDefault(t => t.IsClass && t.Namespace == @namespace && t.Name.Contains(name));

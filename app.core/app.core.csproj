@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="data\common\builder\ReadHandlerBuilder.cs" />
+    <Compile Include="data\common\builder\DatasourceTypeManager.cs" />
     <Compile Include="data\common\builder\SpBuilder.cs" />
     <Compile Include="data\common\contract\IEntity.cs" />
     <Compile Include="data\common\core\CoreDao.cs" />
@@ -51,6 +51,7 @@
     <Compile Include="data\common\contract\ICoreDao.cs" />
     <Compile Include="data\common\contract\IDatabaseSourceTypeHandler.cs" />
     <Compile Include="data\common\core\relation\ColumnInfo.cs" />
+    <Compile Include="data\common\core\relation\EntityColumnSummary.cs" />
     <Compile Include="data\common\core\relation\PrimaryKeyInfo.cs" />
     <Compile Include="data\common\handler\MsSqlHandler.cs" />
     <Compile Include="data\common\handler\MySqlHandler.cs" />

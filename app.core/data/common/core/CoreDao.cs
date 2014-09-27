@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml.Linq;
 using app.core.data.common.builder;
 using app.core.data.common.contract;
@@ -40,13 +41,25 @@ namespace app.core.data.common.core
             xmlConfig = Path.GetFullPath(xmlConfig);
 
             var xmlData = XDocument.Load(xmlConfig);
-            _handler = ReadHandlerBuilder.Load(xmlData);
+            _handler = DatasourceTypeManager.Load(xmlData);
         }
 
+        /// <summary>
+        /// Retreive By Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public TEntity RetreiveById(TId id)
         {
-            //build sp
-            return null;
+            //get entity
+            var entity = Activator.CreateInstance<TEntity>();
+            //get primary key
+            var primaryKey = entity.EntityInfo.PrimaryKeyInfo.columnDescription;
+            //get columns
+            var otherColumns = entity.EntityInfo.MapColumns;
+
+
+            return entity;
         }
 
         public TEntity RetreiveAll()

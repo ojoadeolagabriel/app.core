@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using app.core.util.reflection;
 
 namespace app.core.data.common.core.relation
 {
@@ -18,7 +19,7 @@ namespace app.core.data.common.core.relation
         {
             get
             {
-                return false;
+                return ReflectionHelper.IsTypeCollection(_type);
             }
         }
 

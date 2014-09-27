@@ -19,7 +19,13 @@ namespace app.core.data.common.core
     public class Entity<TId, TEntity> : IEntity
     {
         public Dictionary<string, ColumnInfo> MapColumns = new Dictionary<string, ColumnInfo>();
+
         public PrimaryKeyInfo PrimaryKeyInfo { get; set; }
+
+        public EntityColumnSummary EntityInfo
+        {
+            get { return new EntityColumnSummary { MapColumns = MapColumns, PrimaryKeyInfo = PrimaryKeyInfo }; }
+        }
 
         public TId Id { get; private set; }
 
@@ -39,17 +45,17 @@ namespace app.core.data.common.core
         public PrimaryKeyInfo PrimaryKey<T>(Expression<Func<TEntity, T>> expression)
         {
             var member = ReflectionHelper<TEntity>.GetMember(expression);
-            if(PrimaryKeyInfo==null)
+            if (PrimaryKeyInfo == null)
                 PrimaryKeyInfo = new PrimaryKeyInfo();
 
             PrimaryKeyInfo.ColumnDescription(member.Name);
             return PrimaryKeyInfo;
         }
 
-        public ColumnInfo Map<T>(Expression<Func<TEntity,T>> expression)
+        public ColumnInfo Map<T>(Expression<Func<TEntity, T>> expression)
         {
             var member = ReflectionHelper<TEntity>.GetMember(expression);
-            if(!MapColumns.ContainsKey(member.Name))
+            if (!MapColumns.ContainsKey(member.Name))
                 MapColumns.Add(member.Name, new ColumnInfo());
 
             var mapColumn = MapColumns.First(c => c.Key == member.Name).Value;

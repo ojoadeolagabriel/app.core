@@ -7,10 +7,10 @@ namespace app.core.data.common.core.relation
 {
     public class PrimaryKeyInfo
     {
-        private string _columnDescription;
+        public string columnDescription;
         public PrimaryKeyInfo ColumnDescription(string desc)
         {
-            _columnDescription = desc;
+            columnDescription = desc;
             return this;
         }
     }
