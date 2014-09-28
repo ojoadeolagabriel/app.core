@@ -9,5 +9,10 @@ namespace appcore.test.dto
     public class Institution : Entity<long, Institution>
     {
         public string Name { get; set; }
+
+        public Institution()
+        {
+            Map(c => c.Name).ColumnDescription("name");
+        }
     }
 }

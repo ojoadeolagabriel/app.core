@@ -31,7 +31,7 @@ namespace app.core.util.reflection
         public static bool IsTypeCollection(Type obj)
         {
             return obj.GetInterfaces()
-                .Any(iface => iface.GetGenericTypeDefinition() == typeof(ICollection<>));
+                .Any(iface => iface.GetGenericTypeDefinition() == typeof(IList<>));
         }
 
         public static Type GetTypeInNamespace(string @namespace, string name)

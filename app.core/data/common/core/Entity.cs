@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
+using app.core.data.common.builder.contract;
 using app.core.data.common.contract;
 using app.core.data.common.core.relation;
 using app.core.util.reflection;
@@ -18,16 +19,45 @@ namespace app.core.data.common.core
     /// <typeparam name="TEntity"></typeparam>
     public class Entity<TId, TEntity> : IEntity
     {
-        public Dictionary<string, ColumnInfo> MapColumns = new Dictionary<string, ColumnInfo>();
+        public Dictionary<string, ColumnInfo> MapColumns { get; set; }
 
-        public PrimaryKeyInfo PrimaryKeyInfo { get; set; }
+        private PrimaryKeyInfo primaryKeyInfo;
+
+        public PrimaryKeyInfo PrimaryKeyInfo
+        {
+            get
+            {
+                if (primaryKeyInfo == null)
+                    return new PrimaryKeyInfo {columnDescription = "Id"};
+                return primaryKeyInfo;
+            }
+            set
+            {
+                primaryKeyInfo = value;
+            }
+        }
 
         public EntityColumnSummary EntityInfo
         {
             get { return new EntityColumnSummary { MapColumns = MapColumns, PrimaryKeyInfo = PrimaryKeyInfo }; }
         }
 
-        public string TableName { get; set; }
+        public Entity()
+        {
+            MapColumns = new Dictionary<string, ColumnInfo>();
+        }
+
+        private string _tableName;
+        public string TableName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_tableName))
+                    return GetType().Name.ToLower();
+                return _tableName;
+            }
+            set { _tableName = value; }
+        }
         public void OverrideTablename(string schema)
         {
             TableName = schema;
@@ -35,17 +65,9 @@ namespace app.core.data.common.core
 
         public TId Id { get; private set; }
 
-        protected void SetId(TId id)
+        public void SetId(TId id)
         {
             Id = id;
-        }
-
-        public String SchemaName
-        {
-            get
-            {
-                return null;
-            }
         }
 
         public PrimaryKeyInfo PrimaryKey<T>(Expression<Func<TEntity, T>> expression)

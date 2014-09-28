@@ -27,6 +27,7 @@ namespace appcore.test.dto
             Map(c => c.Username).ColumnDescription("user_name").MaxLength(10);
             Map(c => c.EmailAddress).ColumnDescription("email").MaxLength(10);
             Map(c => c.Password).ColumnDescription("password").MaxLength(10);
+            Map(c => c.Address).ColumnDescription("address").MaxLength(10);
             HasMany(c => c.Institutions).ColumnDescription("institution_id");
         }
     }

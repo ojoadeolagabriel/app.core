@@ -15,7 +15,7 @@ namespace appcore.test
         static void Main(string[] args)
         {
             var dao = new UserDao(null);
-            dao.RetreiveById(1);
+            var user = dao.RetreiveById(1);
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using app.core.data.common.builder;
 using app.core.data.common.builder.contract;
@@ -49,23 +52,48 @@ namespace app.core.data.common.core
         {
             //get entity
             var entity = Activator.CreateInstance<TEntity>();
+            entity.SetId(id);
+
             //get primary key
             var primaryKey = entity.EntityInfo.PrimaryKeyInfo.columnDescription;
-            //get columns
-            var otherColumns = entity.EntityInfo.MapColumns;
+
             //select query
-            var selectQuery = SpBuilder.RetreiveUniqueSp(entity.SchemaName, _handler.IgnoreTablePrefixes);
+            var selectQuery = SpBuilder.BuildRetrieveByIdSp(entity.TableName, _handler.IgnoreTablePrefixes);
 
+            //build params
+            var param = new List<SqlParameter> { new SqlParameter("@" + primaryKey, entity.Id) };
 
+            //exec unique
+            ExecuteUniqueQuery(entity, selectQuery, param);
             return entity;
         }
 
-        public TEntity RetreiveAll()
+        public List<TEntity> RetreiveAll()
         {
             return null;
         }
 
-        public TEntity Save(TEntity entity)
+
+        /// <summary>
+        /// Execute Unique Query
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="selectQuery"></param>
+        /// <param name="sqlParameters"></param>
+        /// <returns></returns>
+        private TEntity ExecuteUniqueQuery(TEntity entity, string selectQuery, List<SqlParameter> sqlParameters)
+        {
+            //exec
+            entity = (TEntity)_handler.ExecuteUniqueSp(entity, sqlParameters, selectQuery);
+            return entity;
+        }
+
+        private T ExecuteNonQuery<T>(TEntity entity)
+        {
+            return default(T);
+        }
+
+        public TEntity Persist(TEntity entity)
         {
             return null;
         }

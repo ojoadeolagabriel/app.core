@@ -8,7 +8,7 @@ namespace app.core.data.common.core.relation
 {
     public class ColumnInfo
     {
-        private string _columnDescription;
+        public string _columnDescription;
         public ColumnInfo ColumnDescription(string desc)
         {
             _columnDescription = desc;
@@ -19,7 +19,14 @@ namespace app.core.data.common.core.relation
         {
             get
             {
-                return ReflectionHelper.IsTypeCollection(_type);
+                try
+                {
+                    return ReflectionHelper.IsTypeCollection(_type);
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
 
@@ -30,7 +37,7 @@ namespace app.core.data.common.core.relation
             return this;
         }
 
-        private Type _type;
+        public Type _type;
         public ColumnInfo SetType(Type type)
         {
             _type = type;

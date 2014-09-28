@@ -65,11 +65,15 @@
     <Compile Include="security\otp\OTPCounter.cs" />
     <Compile Include="util\configuration\ConfigurationReader.cs" />
     <Compile Include="util\reflection\ReflectionHelper.cs" />
+    <Compile Include="util\xml\XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\dao\" />
+    <Folder Include="data\datahandler\" />
     <Folder Include="data\dto\" />
     <Folder Include="exception.management\code\" />
+    <Folder Include="util\numberutil\" />
+    <Folder Include="util\stringutil\" />
     <Folder Include="web\" />
   </ItemGroup>
   <ItemGroup>
