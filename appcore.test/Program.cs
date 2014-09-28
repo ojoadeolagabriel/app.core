@@ -16,8 +16,9 @@ namespace appcore.test
         {
             var now = DateTime.Now;
             var dao = new UserDao(null);
-            var user = dao.RetreiveById(1);
+            var user = dao.RetreiveById(2);
 
+            var allUsers = dao.RetreiveAll();
             var timeTaken = (DateTime.Now - now).TotalMilliseconds;
         }
     }

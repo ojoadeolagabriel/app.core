@@ -13,5 +13,6 @@ namespace app.core.data.common.builder.contract
         String ConnectionString { get; set; }
         string[] IgnoreTablePrefixes { get; set; }
         IEntity ExecuteUniqueSp(IEntity entity,List<SqlParameter> param, string selectQuery);
+        List<IEntity> ExecuteSp(IEntity entity, List<SqlParameter> param, string selectQuery);
     }
 }

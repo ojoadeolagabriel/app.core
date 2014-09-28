@@ -68,9 +68,17 @@ namespace app.core.data.common.core
             return entity;
         }
 
-        public List<TEntity> RetreiveAll()
+        public List<IEntity> RetreiveAll()
         {
-            return null;
+            //get entity
+            var entity = Activator.CreateInstance<TEntity>();
+
+            //select query
+            var selectQuery = SpBuilder.BuildRetrieveAllSp(entity.TableName, _handler.IgnoreTablePrefixes);
+
+            //exec unique
+            var data = ExecuteQuery(entity, selectQuery, null);
+            return data;
         }
 
 
@@ -86,6 +94,20 @@ namespace app.core.data.common.core
             //exec
             entity = (TEntity)_handler.ExecuteUniqueSp(entity, sqlParameters, selectQuery);
             return entity;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="selectQuery"></param>
+        /// <param name="sqlParameters"></param>
+        /// <returns></returns>
+        private List<IEntity> ExecuteQuery(TEntity entity, string selectQuery, List<SqlParameter> sqlParameters)
+        {
+            //exec
+            var data = _handler.ExecuteSp(entity, sqlParameters, selectQuery);
+            return data;
         }
 
         private T ExecuteNonQuery<T>(TEntity entity)

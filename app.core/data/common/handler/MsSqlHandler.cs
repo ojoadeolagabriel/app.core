@@ -45,6 +45,32 @@ namespace app.core.data.common.handler
             return null;
         }
 
+        public List<IEntity> ExecuteSp(IEntity entity, List<SqlParameter> param, string selectQuery)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var command = new SqlCommand(selectQuery, connection) { CommandType = CommandType.StoredProcedure };
+                if (param != null && param.Count > 0)
+                    command.Parameters.AddRange(param.ToArray());
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    var coll = new List<IEntity>();
+                    while (reader.Read())
+                    {
+                        var copyEntity = (IEntity)Activator.CreateInstance(entity.GetType());
+                        ReadColumns(reader, copyEntity);
+                        coll.Add(copyEntity);
+                    }
+                    return coll;
+                }
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Read Columns
         /// </summary>

@@ -13,7 +13,7 @@ namespace app.core.data.common.builder
             {
                 prefixToRemove.ToList().ForEach(c => schema = schema.Replace(c, ""));
             }
-            return string.Format("usp_select_{0}_by_id", schema);
+            return string.Format("[dbo].usp_select_{0}_by_id", schema);
         }
 
         public static string BuildRetrieveAllSp(string schema, string[] prefixToRemove = null)
@@ -22,7 +22,7 @@ namespace app.core.data.common.builder
             {
                 prefixToRemove.ToList().ForEach(c => schema = schema.Replace(c, ""));
             }
-            return string.Format("usp_select_{0}", schema);
+            return string.Format("[dbo].usp_select_{0}{1}", schema, schema.EndsWith("s") ? "" : "s");
         }
 
         public static string BuildDeleteByIdSp(string schema, string[] prefixToRemove = null)
