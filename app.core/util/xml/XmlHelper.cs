@@ -27,8 +27,8 @@ namespace app.core.util.xml
             try
             {
                 var data = "";
-                if (considerDefaultFirst)
-                    return defData;
+                //if (considerDefaultFirst)
+                //    return defData;
 
                 data = element.Descendants(descendant).First().Attribute(attribute).Value;
                 return (TData)Convert.ChangeType(data, typeof(TData));

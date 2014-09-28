@@ -15,20 +15,7 @@ namespace app.core.data.common.core.relation
             return this;
         }
 
-        public bool HasMany
-        {
-            get
-            {
-                try
-                {
-                    return ReflectionHelper.IsTypeCollection(_type);
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-        }
+        public bool IsForeign { get; set; }
 
         private long _maxLength;
         public ColumnInfo MaxLength(long maxLength)

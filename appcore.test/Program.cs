@@ -14,8 +14,11 @@ namespace appcore.test
     {
         static void Main(string[] args)
         {
+            var now = DateTime.Now;
             var dao = new UserDao(null);
             var user = dao.RetreiveById(1);
+
+            var timeTaken = (DateTime.Now - now).TotalMilliseconds;
         }
     }
 }

@@ -58,7 +58,7 @@ namespace app.core.data.common.handler
                 try
                 {
                     //process single map
-                    if (!item.Value.HasMany)
+                    if (!item.Value.IsForeign)
                     {
                         var columnName = item.Value._columnDescription;
                         var columnData = ReadColumn(reader, columnName);
@@ -68,22 +68,19 @@ namespace app.core.data.common.handler
                     }
                     else
                     {
-                        var constructorInfo = typeof(List<>).MakeGenericType(item.Value._type).GetConstructor(Type.EmptyTypes);
-                        if (constructorInfo != null)
-                        {
-                            var t = item.Value._type.GetGenericArguments()[0];
-                            var childData = (IEntity)Activator.CreateInstance(t);
-                            var columnId = ReadColumn(reader, childData.PrimaryKeyInfo.columnDescription);
+                        var t = item.Value._type;
+                        var childData = (IEntity)Activator.CreateInstance(t);
+                        var columnId = ReadColumn(reader, childData.PrimaryKeyInfo.columnDescription);
 
-                            var @params = new List<SqlParameter>();
-                            var param = new SqlParameter(childData.PrimaryKeyInfo.columnDescription, columnId);
-                            @params.Add(param);
+                        var @params = new List<SqlParameter>();
+                        var param = new SqlParameter(childData.PrimaryKeyInfo.columnDescription, columnId);
+                        @params.Add(param);
 
-                            var query = SpBuilder.BuildRetrieveByIdSp(childData.TableName);
-                            var result = ExecuteUniqueSp(childData, @params, query);
+                        var query = SpBuilder.BuildRetrieveByIdSp(childData.TableName);
+                        var result = ExecuteUniqueSp(childData, @params, query);
 
-                            entity.GetType().GetProperty(item.Key).SetValue(entity, result, null);
-                        }
+                        entity.GetType().GetProperty(item.Key).SetValue(entity, result, null);
+
                     }
                 }
                 catch (Exception exc)

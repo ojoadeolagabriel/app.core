@@ -92,7 +92,7 @@ namespace app.core.data.common.core
             return mapColumn;
         }
 
-        public ColumnInfo HasMany<T>(Expression<Func<TEntity, T>> expression)
+        public ColumnInfo Foreign<T>(Expression<Func<TEntity, T>> expression)
         {
             var member = ReflectionHelper<TEntity>.GetMember(expression);
             if (!MapColumns.ContainsKey(member.Name))
@@ -100,6 +100,7 @@ namespace app.core.data.common.core
 
             var mapColumn = MapColumns.First(c => c.Key == member.Name).Value;
             mapColumn.SetType(((PropertyInfo)member).PropertyType);
+            mapColumn.IsForeign = true;
             return mapColumn;
         }
     }

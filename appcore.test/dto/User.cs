@@ -17,7 +17,7 @@ namespace appcore.test.dto
         public string Password { get; set; }
         public string EmailAddress { get; set; }
         public string Address { get; set; }
-        public List<Institution> Institutions { get; set; }
+        public Institution Institution { get; set; }
 
         public User()
         {
@@ -28,7 +28,7 @@ namespace appcore.test.dto
             Map(c => c.EmailAddress).ColumnDescription("email").MaxLength(10);
             Map(c => c.Password).ColumnDescription("password").MaxLength(10);
             Map(c => c.Address).ColumnDescription("address").MaxLength(10);
-            HasMany(c => c.Institutions).ColumnDescription("institution_id");
+            Foreign(c => c.Institution).ColumnDescription("institution_id");
         }
     }
 }

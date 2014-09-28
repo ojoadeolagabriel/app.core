@@ -35,12 +35,12 @@ namespace app.core.data.common.builder
                 if (configElement != null)
                 {
                     //fetch configs
-                    var databaseSourceTypeHanderName = XmlHelper<string>.ReadField(configElement, "data_handler", "type");
-                    var connectionString = XmlHelper<string>.ReadField(configElement, "connection_string", "value");
-                    var databaseUnitName = XmlHelper<string>.ReadField(configElement, "data_handler", "database_unit_name", databaseUnit, true);
+                    var dialect = XmlHelper<string>.ReadField(configElement, "connection.dialect", "value");
+                    var connectionString = XmlHelper<string>.ReadField(configElement, "connection.string", "value");
+                    var databaseUnitName = XmlHelper<string>.ReadField(configElement, "connection.databaseunit", "value", databaseUnit, true);
                     var ignoreTablePrefixes = XmlHelper<string>.ReadField(configElement, "ignore_table_prefixes", "value");
 
-                    var type = ReflectionHelper.GetTypeInNamespace(HandlerLocation, databaseSourceTypeHanderName);
+                    var type = ReflectionHelper.GetTypeInNamespace(HandlerLocation, dialect);
                     var handler = (IDatabaseSourceTypeHandler)Activator.CreateInstance(type);
 
                     //set params
