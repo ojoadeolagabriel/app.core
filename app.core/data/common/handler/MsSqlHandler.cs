@@ -45,8 +45,33 @@ namespace app.core.data.common.handler
             return null;
         }
 
-        public List<IEntity> ExecuteSp(IEntity entity, List<SqlParameter> param, string selectQuery)
+        public IEntity ExecuteUniqueSp<TIEntity>(List<SqlParameter> param, string selectQuery)
         {
+            var entity = (IEntity)Activator.CreateInstance(typeof (TIEntity));
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var command = new SqlCommand(selectQuery, connection) { CommandType = CommandType.StoredProcedure };
+                if (param.Count > 0)
+                    command.Parameters.AddRange(param.ToArray());
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ReadColumns(reader, entity);
+                        return entity;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public List<IEntity> ExecuteSp<TDto>(List<SqlParameter> param, string selectQuery)
+        {
+            var entity = (IEntity)Activator.CreateInstance(typeof(TDto));
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();

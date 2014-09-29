@@ -64,8 +64,8 @@ namespace app.core.data.common.core
             var param = new List<SqlParameter> { new SqlParameter("@" + primaryKey, entity.Id) };
 
             //exec unique
-            ExecuteUniqueQuery(entity, selectQuery, param);
-            return entity;
+            var result = ExecuteUniqueQuery<TEntity>(selectQuery, param);
+            return (TEntity)result;
         }
 
         public List<IEntity> RetreiveAll()
@@ -77,7 +77,7 @@ namespace app.core.data.common.core
             var selectQuery = SpBuilder.BuildRetrieveAllSp(entity.TableName, _handler.IgnoreTablePrefixes);
 
             //exec unique
-            var data = ExecuteQuery(entity, selectQuery, null);
+            var data = ExecuteQuery<TEntity>(selectQuery, null);
             return data;
         }
 
@@ -85,28 +85,26 @@ namespace app.core.data.common.core
         /// <summary>
         /// Execute Unique Query
         /// </summary>
-        /// <param name="entity"></param>
         /// <param name="selectQuery"></param>
         /// <param name="sqlParameters"></param>
         /// <returns></returns>
-        private TEntity ExecuteUniqueQuery(TEntity entity, string selectQuery, List<SqlParameter> sqlParameters)
+        public IEntity ExecuteUniqueQuery<TDto>(string selectQuery, List<SqlParameter> sqlParameters)
         {
             //exec
-            entity = (TEntity)_handler.ExecuteUniqueSp(entity, sqlParameters, selectQuery);
+            var entity = _handler.ExecuteUniqueSp<TDto>(sqlParameters, selectQuery);
             return entity;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="entity"></param>
         /// <param name="selectQuery"></param>
         /// <param name="sqlParameters"></param>
         /// <returns></returns>
-        private List<IEntity> ExecuteQuery(TEntity entity, string selectQuery, List<SqlParameter> sqlParameters)
+        public List<IEntity> ExecuteQuery<TDto>(string selectQuery, List<SqlParameter> sqlParameters)
         {
             //exec
-            var data = _handler.ExecuteSp(entity, sqlParameters, selectQuery);
+            var data = _handler.ExecuteSp<TDto>(sqlParameters, selectQuery);
             return data;
         }
 
