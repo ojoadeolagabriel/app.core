@@ -21,19 +21,24 @@ namespace app.core.data.common.core
     {
         public Dictionary<string, ColumnInfo> MapColumns { get; set; }
 
-        private PrimaryKeyInfo primaryKeyInfo;
+        private PrimaryKeyInfo _primaryKeyInfo;
+
+        public bool IsDirty
+        {
+            get { return Convert.ToInt64(Id) > 0; }
+        }
 
         public PrimaryKeyInfo PrimaryKeyInfo
         {
             get
             {
-                if (primaryKeyInfo == null)
-                    return new PrimaryKeyInfo {columnDescription = "Id"};
-                return primaryKeyInfo;
+                if (_primaryKeyInfo == null)
+                    return new PrimaryKeyInfo { columnDescription = "Id" };
+                return _primaryKeyInfo;
             }
             set
             {
-                primaryKeyInfo = value;
+                _primaryKeyInfo = value;
             }
         }
 

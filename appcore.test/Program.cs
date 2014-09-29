@@ -20,10 +20,14 @@ namespace appcore.test
             var users = new List<User>();
             for (int i = 0; i < 100; i++)
             {
-                var user = dao.RetreiveById(1);  
+                var user = dao.RetreiveById(1);
                 users.Add(user);
+
+                var inst = new Institution { Name = "GTB Bank" };
+                inst.SetId(1);
+                dao.Persist(new User { Address = "12", EmailAddress = "aa@yy.com", Password = "dexter", Username = "deola", Institution = inst });
             }
-            
+
             var allUsers = dao.RetreiveAll();
             var timeTaken = (DateTime.Now - now).TotalMilliseconds;
         }

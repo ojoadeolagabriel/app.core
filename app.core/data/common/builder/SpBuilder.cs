@@ -33,5 +33,10 @@ namespace app.core.data.common.builder
             }
             return string.Format("usp_delete_by_{0}", schema);
         }
+
+        public static string BuildPersistSp(string tableName, string[] ignoreTablePrefixes)
+        {
+            return "";
+        }
     }
 }

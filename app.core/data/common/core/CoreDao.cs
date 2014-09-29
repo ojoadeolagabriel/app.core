@@ -115,6 +115,28 @@ namespace app.core.data.common.core
 
         public TEntity Persist(TEntity entity)
         {
+            if (entity.IsDirty)
+                throw new Exception("[Data Is Not New] - Cannot persist data");
+
+            //get primary key
+            var primaryKey = entity.EntityInfo.PrimaryKeyInfo.columnDescription;
+            var nonForeignColumns = entity.EntityInfo.MapColumns.Where(c => !c.Value.IsForeign);
+            var foreignColumns = entity.EntityInfo.MapColumns.Where(c => c.Value!=null && c.Value.IsForeign);
+
+            //build persist query
+            var parameters = new List<SqlParameter>();
+            foreach (var column in nonForeignColumns)
+                parameters.Add(new SqlParameter(string.Format("@{0}", column.Value._columnDescription), entity.GetType().GetProperty(column.Key).GetValue(entity, null)));
+
+            foreach (var column in foreignColumns)
+            {
+                var childData = entity.GetType().GetProperty(column.Key).GetValue(entity,null);
+                parameters.Add(new SqlParameter(string.Format("@{0}", column.Value._columnDescription),
+                    column.Value._type.GetProperty("Id").GetValue(childData, null)));
+            }
+
+            //select query
+            var selectQuery = SpBuilder.BuildPersistSp(entity.TableName, _handler.IgnoreTablePrefixes);
             return null;
         }
 

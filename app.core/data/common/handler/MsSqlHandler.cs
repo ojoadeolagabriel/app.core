@@ -97,8 +97,8 @@ namespace app.core.data.common.handler
                     }
                     else
                     {
-                        var t = item.Value._type;
-                        var childData = (IEntity)Activator.CreateInstance(t);
+                        var childType = item.Value._type;
+                        var childData = (IEntity)Activator.CreateInstance(childType);
                         var columnId = ReadColumn(reader, childData.PrimaryKeyInfo.columnDescription);
 
                         var @params = new List<SqlParameter>();
