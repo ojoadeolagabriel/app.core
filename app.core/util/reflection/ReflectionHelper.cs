@@ -21,6 +21,8 @@ namespace app.core.util.reflection
     /// </summary>
     public delegate object FastMethodCallDelegate(object target, params object[] parameters);
 
+    public delegate object GenericInvoker(object target, params object[] arguments);
+
     /// <summary>
     /// This class allows you to get members from types more safely than using
     /// string literals. It only exists because C# does not have fieldinfoof,
@@ -28,6 +30,8 @@ namespace app.core.util.reflection
     /// </summary>
     public static class ReflectionHelper
     {
+        private static GenericInvoker invoker;
+
         public static bool IsTypeCollection(Type obj)
         {
             return obj.GetInterfaces()

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using app.core.data.common.builder;
 using app.core.data.common.builder.contract;
 using app.core.data.common.contract;
@@ -22,32 +23,9 @@ namespace app.core.data.common.handler
         public string ConnectionString { get; set; }
         public string[] IgnoreTablePrefixes { get; set; }
 
-        public IEntity ExecuteUniqueSp(IEntity entity, List<SqlParameter> param, string selectQuery)
-        {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-                var command = new SqlCommand(selectQuery, connection) { CommandType = CommandType.StoredProcedure };
-                if (param.Count > 0)
-                    command.Parameters.AddRange(param.ToArray());
-
-                var reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        ReadColumns(reader, entity);
-                        return entity;
-                    }
-                }
-            }
-
-            return null;
-        }
-
         public IEntity ExecuteUniqueSp<TIEntity>(List<SqlParameter> param, string selectQuery)
         {
-            var entity = (IEntity)Activator.CreateInstance(typeof (TIEntity));
+            var entity = (IEntity)Activator.CreateInstance(typeof(TIEntity));
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
@@ -128,7 +106,11 @@ namespace app.core.data.common.handler
                         @params.Add(param);
 
                         var query = SpBuilder.BuildRetrieveByIdSp(childData.TableName);
-                        var result = ExecuteUniqueSp(childData, @params, query);
+
+                        var result = GetType()
+                        .GetMethod("ExecuteUniqueSp")
+                        .MakeGenericMethod(item.Value._type)
+                        .Invoke(this, new object[] { @params, query });
 
                         entity.GetType().GetProperty(item.Key).SetValue(entity, result, null);
 

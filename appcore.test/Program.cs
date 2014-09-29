@@ -20,7 +20,6 @@ namespace appcore.test
             var users = new List<User>();
             for (int i = 0; i < 100; i++)
             {
-                
                 var user = dao.RetreiveById(1);  
                 users.Add(user);
             }
