@@ -75,6 +75,25 @@ namespace app.core.data.common.handler
         }
 
         /// <summary>
+        /// Execute Non Query
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="sqlParameters"></param>
+        /// <returns></returns>
+        public T ExecuteNonQuery<T>(string query, List<SqlParameter> sqlParameters)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var cmd = new SqlCommand(query, connection) { CommandType = CommandType.StoredProcedure };
+
+                var data = cmd.ExecuteScalar();
+                return (T)Convert.ChangeType(data, typeof(T));
+            }
+        }
+
+        /// <summary>
         /// Read Columns
         /// </summary>
         /// <param name="reader"></param>

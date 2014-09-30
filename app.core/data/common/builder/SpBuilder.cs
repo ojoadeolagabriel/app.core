@@ -31,12 +31,25 @@ namespace app.core.data.common.builder
             {
                 prefixToRemove.ToList().ForEach(c => schema = schema.Replace(c, ""));
             }
-            return string.Format("usp_delete_by_{0}", schema);
+            return string.Format("[dbo].usp_delete_by_{0}", schema);
         }
 
-        public static string BuildPersistSp(string tableName, string[] ignoreTablePrefixes)
+        public static string BuildPersistSp(string schema, string[] ignoreTablePrefixes)
         {
-            return "";
+            if (ignoreTablePrefixes != null)
+            {
+                ignoreTablePrefixes.ToList().ForEach(c => schema = schema.Replace(c, ""));
+            }
+            return string.Format("[dbo].usp_insert_{0}", schema);
+        }
+
+        public static string BuildUpdateSp(string schema, string[] ignoreTablePrefixes)
+        {
+            if (ignoreTablePrefixes != null)
+            {
+                ignoreTablePrefixes.ToList().ForEach(c => schema = schema.Replace(c, ""));
+            }
+            return string.Format("[dbo].usp_update_{0}", schema);
         }
     }
 }

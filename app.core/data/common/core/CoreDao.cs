@@ -108,20 +108,27 @@ namespace app.core.data.common.core
             return data;
         }
 
-        private T ExecuteNonQuery<T>(TEntity entity)
+        /// <summary>
+        /// Execute Non Query
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="sqlParameters"></param>
+        /// <returns></returns>
+        private T ExecuteNonQuery<T>(string query, List<SqlParameter> sqlParameters)
         {
-            return default(T);
+            var result = _handler.ExecuteNonQuery<T>(query, sqlParameters);
+            return result;
         }
 
         public TEntity Persist(TEntity entity)
         {
             if (entity.IsDirty)
-                throw new Exception("[Data Is Not New] - Cannot persist data");
+                throw new Exception("[ Data Is Not New ] - Cannot persist data");
 
             //get primary key
-            var primaryKey = entity.EntityInfo.PrimaryKeyInfo.columnDescription;
             var nonForeignColumns = entity.EntityInfo.MapColumns.Where(c => !c.Value.IsForeign);
-            var foreignColumns = entity.EntityInfo.MapColumns.Where(c => c.Value!=null && c.Value.IsForeign);
+            var foreignColumns = entity.EntityInfo.MapColumns.Where(c => c.Value != null && c.Value.IsForeign);
 
             //build persist query
             var parameters = new List<SqlParameter>();
@@ -130,19 +137,50 @@ namespace app.core.data.common.core
 
             foreach (var column in foreignColumns)
             {
-                var childData = entity.GetType().GetProperty(column.Key).GetValue(entity,null);
+                var childData = entity.GetType().GetProperty(column.Key).GetValue(entity, null);
                 parameters.Add(new SqlParameter(string.Format("@{0}", column.Value._columnDescription),
                     column.Value._type.GetProperty("Id").GetValue(childData, null)));
             }
 
             //select query
-            var selectQuery = SpBuilder.BuildPersistSp(entity.TableName, _handler.IgnoreTablePrefixes);
+            var persistQuery = SpBuilder.BuildPersistSp(entity.TableName, _handler.IgnoreTablePrefixes);
+
+            var result = GetType()
+                        .GetMethod("ExecuteNonQuery")
+                        .MakeGenericMethod(typeof(IEntity))
+                        .Invoke(this, new object[] { parameters, persistQuery });
+
             return null;
         }
 
         public void Update(TEntity entity)
         {
+            if (!entity.IsDirty)
+                throw new Exception("[ Data Is New ] - Cannot persist data");
 
+            //get primary key
+            var nonForeignColumns = entity.EntityInfo.MapColumns.Where(c => !c.Value.IsForeign);
+            var foreignColumns = entity.EntityInfo.MapColumns.Where(c => c.Value != null && c.Value.IsForeign);
+
+            //build persist query
+            var parameters = new List<SqlParameter>();
+            foreach (var column in nonForeignColumns)
+                parameters.Add(new SqlParameter(string.Format("@{0}", column.Value._columnDescription), entity.GetType().GetProperty(column.Key).GetValue(entity, null)));
+
+            foreach (var column in foreignColumns)
+            {
+                var childData = (IEntity)entity.GetType().GetProperty(column.Key).GetValue(entity, null);
+                parameters.Add(new SqlParameter(string.Format("@{0}", column.Value._columnDescription),
+                    column.Value._type.GetProperty("Id").GetValue(childData, null)));
+            }
+
+            //select query
+            var persistQuery = SpBuilder.BuildUpdateSp(entity.TableName, _handler.IgnoreTablePrefixes);
+
+            var result = GetType()
+                        .GetMethod("ExecuteNonQuery")
+                        .MakeGenericMethod(typeof(IEntity))
+                        .Invoke(this, new object[] { parameters, persistQuery });
         }
 
         public void Delete(TEntity entity)

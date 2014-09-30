@@ -14,5 +14,6 @@ namespace app.core.data.common.builder.contract
         string[] IgnoreTablePrefixes { get; set; }
         IEntity ExecuteUniqueSp<TIEntity>(List<SqlParameter> param, string selectQuery);
         List<IEntity> ExecuteSp<TDto>(List<SqlParameter> param, string selectQuery);
+        T ExecuteNonQuery<T>(string query, List<SqlParameter> sqlParameters);
     }
 }
