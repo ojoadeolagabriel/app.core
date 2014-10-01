@@ -23,9 +23,9 @@ namespace app.core.data.common.core
 
         private PrimaryKeyInfo _primaryKeyInfo;
 
-        public bool IsDirty
+        public bool IsNew
         {
-            get { return Convert.ToInt64(Id) > 0; }
+            get { return Convert.ToInt64(Id) == 0; }
         }
 
         public PrimaryKeyInfo PrimaryKeyInfo
@@ -33,7 +33,7 @@ namespace app.core.data.common.core
             get
             {
                 if (_primaryKeyInfo == null)
-                    return new PrimaryKeyInfo { columnDescription = "Id" };
+                    return new PrimaryKeyInfo { columnDescription = "Id", ColumnType = typeof(TId) };
                 return _primaryKeyInfo;
             }
             set

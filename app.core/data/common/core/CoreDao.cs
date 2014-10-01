@@ -7,6 +7,9 @@ using System.Xml.Linq;
 using app.core.data.common.builder;
 using app.core.data.common.builder.contract;
 using app.core.data.common.contract;
+using app.core.exception.management;
+using app.core.exception.management.code;
+using app.core.util.reflection;
 
 namespace app.core.data.common.core
 {
@@ -115,7 +118,7 @@ namespace app.core.data.common.core
         /// <param name="query"></param>
         /// <param name="sqlParameters"></param>
         /// <returns></returns>
-        private T ExecuteNonQuery<T>(string query, List<SqlParameter> sqlParameters)
+        public T ExecuteNonQuery<T>(string query, List<SqlParameter> sqlParameters)
         {
             var result = _handler.ExecuteNonQuery<T>(query, sqlParameters);
             return result;
@@ -123,7 +126,7 @@ namespace app.core.data.common.core
 
         public TEntity Persist(TEntity entity)
         {
-            if (entity.IsDirty)
+            if (!entity.IsNew)
                 throw new Exception("[ Data Is Not New ] - Cannot persist data");
 
             //get primary key
@@ -137,7 +140,11 @@ namespace app.core.data.common.core
 
             foreach (var column in foreignColumns)
             {
-                var childData = entity.GetType().GetProperty(column.Key).GetValue(entity, null);
+                var childData = (IEntity)entity.GetType().GetProperty(column.Key).GetValue(entity, null);
+
+                if (childData.IsNew)
+                    ExceptionHandler.Handle(string.Format("{0} is orphaned, canceling save request", childData.TableName), ExceptionCode.DataPersistenceIssue);
+
                 parameters.Add(new SqlParameter(string.Format("@{0}", column.Value._columnDescription),
                     column.Value._type.GetProperty("Id").GetValue(childData, null)));
             }
@@ -145,17 +152,18 @@ namespace app.core.data.common.core
             //select query
             var persistQuery = SpBuilder.BuildPersistSp(entity.TableName, _handler.IgnoreTablePrefixes);
 
-            var result = GetType()
+            var primaryKeyIndex = GetType()
                         .GetMethod("ExecuteNonQuery")
-                        .MakeGenericMethod(typeof(IEntity))
-                        .Invoke(this, new object[] { parameters, persistQuery });
+                        .MakeGenericMethod(entity.PrimaryKeyInfo.ColumnType)
+                        .Invoke(this, new object[] { persistQuery, parameters });
 
+            entity.SetId((TId)Convert.ChangeType(primaryKeyIndex, typeof(TId)));
             return null;
         }
 
         public void Update(TEntity entity)
         {
-            if (!entity.IsDirty)
+            if (entity.IsNew)
                 throw new Exception("[ Data Is New ] - Cannot persist data");
 
             //get primary key
@@ -164,12 +172,23 @@ namespace app.core.data.common.core
 
             //build persist query
             var parameters = new List<SqlParameter>();
+
+            //add primary key
+            parameters.Add(new SqlParameter("@Id", entity.Id));
+
             foreach (var column in nonForeignColumns)
-                parameters.Add(new SqlParameter(string.Format("@{0}", column.Value._columnDescription), entity.GetType().GetProperty(column.Key).GetValue(entity, null)));
+            {
+                parameters.Add(new SqlParameter(string.Format("@{0}", column.Value._columnDescription),
+                    entity.GetType().GetProperty(column.Key).GetValue(entity, null)));
+            }
 
             foreach (var column in foreignColumns)
             {
                 var childData = (IEntity)entity.GetType().GetProperty(column.Key).GetValue(entity, null);
+
+                if (childData.IsNew)
+                    ExceptionHandler.Handle(string.Format("{0} is orphaned, canceling update request", childData.TableName), ExceptionCode.DataUpdateIssue);
+
                 parameters.Add(new SqlParameter(string.Format("@{0}", column.Value._columnDescription),
                     column.Value._type.GetProperty("Id").GetValue(childData, null)));
             }
@@ -180,7 +199,7 @@ namespace app.core.data.common.core
             var result = GetType()
                         .GetMethod("ExecuteNonQuery")
                         .MakeGenericMethod(typeof(IEntity))
-                        .Invoke(this, new object[] { parameters, persistQuery });
+                        .Invoke(this, new object[] { persistQuery, parameters });
         }
 
         public void Delete(TEntity entity)

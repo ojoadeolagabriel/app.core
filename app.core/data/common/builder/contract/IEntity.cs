@@ -12,5 +12,7 @@ namespace app.core.data.common.builder.contract
         EntityColumnSummary EntityInfo { get; }
 
         string TableName { get; }
+
+        bool IsNew { get; }
     }
 }

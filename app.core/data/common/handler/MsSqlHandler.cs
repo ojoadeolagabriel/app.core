@@ -87,6 +87,8 @@ namespace app.core.data.common.handler
             {
                 connection.Open();
                 var cmd = new SqlCommand(query, connection) { CommandType = CommandType.StoredProcedure };
+                if (sqlParameters != null)
+                    cmd.Parameters.AddRange(sqlParameters.ToArray());
 
                 var data = cmd.ExecuteScalar();
                 return (T)Convert.ChangeType(data, typeof(T));

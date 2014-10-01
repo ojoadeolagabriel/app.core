@@ -29,6 +29,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>delta_phi.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -56,6 +65,12 @@
     <Compile Include="data\common\handler\MsSqlHandler.cs" />
     <Compile Include="data\common\handler\MySqlHandler.cs" />
     <Compile Include="data\common\handler\OracleHandler.cs" />
+    <Compile Include="data\dao\TokenDao.cs" />
+    <Compile Include="data\dao\TokenRequestorDao.cs" />
+    <Compile Include="data\dto\Token.cs" />
+    <Compile Include="data\dto\TokenRequestor.cs" />
+    <Compile Include="exception.management\code\ExceptionCode.cs" />
+    <Compile Include="exception.management\ExceptionHandler.cs" />
     <Compile Include="exception.management\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="security\otp\hmacsha\hmacsha1.cs" />
@@ -68,15 +83,13 @@
     <Compile Include="util\xml\XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="data\dao\" />
     <Folder Include="data\datahandler\" />
-    <Folder Include="data\dto\" />
-    <Folder Include="exception.management\code\" />
     <Folder Include="util\numberutil\" />
     <Folder Include="util\stringutil\" />
     <Folder Include="web\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="delta_phi.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
