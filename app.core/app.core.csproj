@@ -42,9 +42,53 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +96,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="data\audit\AuditData.cs" />
     <Compile Include="data\common\builder\DatasourceTypeManager.cs" />
     <Compile Include="data\common\builder\SpBuilder.cs" />
     <Compile Include="data\common\builder\contract\IEntity.cs" />
@@ -65,28 +110,43 @@
     <Compile Include="data\common\handler\MsSqlHandler.cs" />
     <Compile Include="data\common\handler\MySqlHandler.cs" />
     <Compile Include="data\common\handler\OracleHandler.cs" />
+    <Compile Include="data\dao\CardBrandDao.cs" />
+    <Compile Include="data\dao\InstitutionDao.cs" />
     <Compile Include="data\dao\TokenDao.cs" />
     <Compile Include="data\dao\TokenRequestorDao.cs" />
+    <Compile Include="data\dao\UserDao.cs" />
+    <Compile Include="data\dto\CardBrand.cs" />
+    <Compile Include="data\dto\custom\UserInstituion.cs" />
+    <Compile Include="data\dto\Institution.cs" />
     <Compile Include="data\dto\Token.cs" />
     <Compile Include="data\dto\TokenRequestor.cs" />
+    <Compile Include="data\dto\User.cs" />
+    <Compile Include="data\helper\PaginatedDto.cs" />
     <Compile Include="exception.management\code\ExceptionCode.cs" />
     <Compile Include="exception.management\ExceptionHandler.cs" />
-    <Compile Include="exception.management\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="security\encryptor\AesUtil.cs" />
+    <Compile Include="security\encryptor\TripleDesUtil.cs" />
     <Compile Include="security\otp\hmacsha\hmacsha1.cs" />
     <Compile Include="security\otp\hmacsha\memutil.cs" />
     <Compile Include="security\otp\hmacsha\sha1.cs" />
     <Compile Include="security\otp\OTP.cs" />
     <Compile Include="security\otp\OTPCounter.cs" />
+    <Compile Include="security\SecurityHelper.cs" />
+    <Compile Include="util\configuration\ConfgurationReaderExt.cs" />
     <Compile Include="util\configuration\ConfigurationReader.cs" />
     <Compile Include="util\reflection\ReflectionHelper.cs" />
     <Compile Include="util\xml\XmlHelper.cs" />
+    <Compile Include="web\mvc\action\ButtonAttribute.cs" />
+    <Compile Include="web\mvc\command\PaginatedRequestCommand.cs" />
+    <Compile Include="web\mvc\constraint\GuidRouteConstraint.cs" />
+    <Compile Include="web\mvc\filter\EmptyParameterFilterAttribute.cs" />
+    <Compile Include="web\mvc\handler\RequireHttpsMessageHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="data\datahandler\" />
+    <Folder Include="nbo\invoker\" />
     <Folder Include="util\numberutil\" />
     <Folder Include="util\stringutil\" />
-    <Folder Include="web\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="delta_phi.pfx" />

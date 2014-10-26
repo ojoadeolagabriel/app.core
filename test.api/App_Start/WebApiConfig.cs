@@ -1,0 +1,37 @@
+﻿using System.Web.Http;
+using app.core.web.mvc.handler;
+
+namespace test.api.App_Start
+{
+    public static class WebApiConfig
+    {
+        public static void Configure(HttpConfiguration configuration)
+        {
+            configuration.MessageHandlers.Add(new RequireHttpsMessageHandler());
+        }
+
+        public static void Register(HttpConfiguration config)
+        {
+            config.Routes.MapHttpRoute(
+                name: "NewDefaultApi",
+                routeTemplate: "synapse.api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+
+            // Uncomment the following line of code to enable query support for actions with an IQueryable or IQueryable<T> return type.
+            // To avoid processing unexpected or malicious queries, use the validation settings on QueryableAttribute to validate incoming queries.
+            // For more information, visit http://go.microsoft.com/fwlink/?LinkId=279712.
+            //config.EnableQuerySupport();
+
+            // To disable tracing in your application, please comment out or remove the following line of code
+            // For more information, refer to: http://www.asp.net/web-api
+            config.EnableSystemDiagnosticsTracing();
+        }
+    }
+}

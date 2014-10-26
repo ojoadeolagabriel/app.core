@@ -14,7 +14,7 @@ namespace app.core.data.dto
 
         public TokenRequestor()
         {
-            OverrideTablename("tbl_token_requestor");
+            SetTablename("tbl_token_requestor");
 
             Map(c => c.Name).ColumnDescription("name");
             Map(c => c.ParentKey).ColumnDescription("parent_key");

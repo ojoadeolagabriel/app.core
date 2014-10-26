@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
+using app.core.data.audit;
 using app.core.data.common.builder.contract;
 using app.core.data.common.contract;
 using app.core.data.common.core.relation;
@@ -19,6 +20,10 @@ namespace app.core.data.common.core
     /// <typeparam name="TEntity"></typeparam>
     public class Entity<TId, TEntity> : IEntity
     {
+        public AuditData AuditData  = new AuditData();
+
+        public TimeSpan ExecutionSpan { get; set; }
+
         public Dictionary<string, ColumnInfo> MapColumns { get; set; }
 
         private PrimaryKeyInfo _primaryKeyInfo;
@@ -53,7 +58,7 @@ namespace app.core.data.common.core
         }
 
         private string _tableName;
-        public string TableName
+        public string SchemaName
         {
             get
             {
@@ -63,16 +68,21 @@ namespace app.core.data.common.core
             }
             set { _tableName = value; }
         }
-        public void OverrideTablename(string schema)
+        public void SetTablename(string schema)
         {
-            TableName = schema;
+            SchemaName = schema;
         }
 
         public TId Id { get; private set; }
 
-        public void SetId(TId id)
+        public void SetId(object id)
         {
-            Id = id;
+            Id = id == null ? default(TId) : (TId)id;
+        }
+
+        public long GetId()
+        {
+            return Convert.ToInt64(Id);
         }
 
         public PrimaryKeyInfo PrimaryKey<T>(Expression<Func<TEntity, T>> expression)
@@ -89,8 +99,9 @@ namespace app.core.data.common.core
         {
             var member = ReflectionHelper<TEntity>.GetMember(expression);
             if (!MapColumns.ContainsKey(member.Name))
-                MapColumns.Add(member.Name, new ColumnInfo());
-
+            {
+                MapColumns.Add(member.Name, new ColumnInfo { _columnDescription = member.Name });
+            }
             var mapColumn = MapColumns.First(c => c.Key == member.Name).Value;
 
             mapColumn.SetType(((PropertyInfo)member).PropertyType);

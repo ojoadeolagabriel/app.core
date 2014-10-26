@@ -30,5 +30,12 @@ namespace app.core.data.common.core.relation
             _type = type;
             return this;
         }
+
+        private string _validationRegex;
+        public ColumnInfo ValidationRegex(string validationString)
+        {
+            _validationRegex = validationString;
+            return this;
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace app.core.data.dto
 
         public Token()
         {
-            OverrideTablename("tbl_token");
+            SetTablename("tbl_token");
             Map(c => c.ChildKey).ColumnDescription("child_key");
             Map(c => c.TokenKey).ColumnDescription("token_key");
             Map(c => c.Counter).ColumnDescription("counter");

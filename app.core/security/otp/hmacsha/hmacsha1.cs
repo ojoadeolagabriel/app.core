@@ -4,10 +4,10 @@
  * @license CPL, CodeProject license 
  */
 
-using System;
 using Core.Buffer;
+using Core.Crypto;
 
-namespace Core.Crypto
+namespace app.core.security.otp.hmacsha
 {
 	/// <summary>
 	/// This class provides the HMAC SHA1 algorithm

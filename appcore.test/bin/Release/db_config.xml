@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <rig value="core.db">
+    <auto_generate_crud_sql value="true"/>
+    <audit_crud_enabled value="true"/>
+    <force_use_of_existing_sp value="false"/>
+    <ignore_foreign_relationship value="false"/>
+    <ignore_table_prefixes value="tbl;tbl_"/>
+    <connection.databaseunit value = "app.core" />
+    <connection.dialect value="MsSql"/>
+    <connection.string value="data source=.;database=app.core;user=paydirect"/>
+  </rig>
+  <rig value="core.report.db">
+    <ignore_table_prefixes value="tbl;tbl_"/>
+    <connection.databaseunit value = "app.core" />
+    <connection.dialect value="MsSql"/>
+    <connection.string value="data source=.;database=app.core;user=paydirect"/>
+  </rig>
+</configuration>

@@ -1,0 +1,45 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = null;
+}
+<script src="@Url.Content("~/Scripts/jquery-1.8.2.js")"></script>
+<script src="@Url.Content("~/ExtraScripts/action.js")"></script>
+
+<table style="font-family: verdana; font-size: 12px">
+    <tr>
+        <td>Your Card: </td>
+        <td>
+            @Html.DropDownList("dd_card_brand", (IEnumerable<SelectListItem>)ViewBag.CardBrands, "--Select Your Card--", new { style = "width: 230px; padding: 3px; font-family: verdana" })
+        </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: text-top">
+            Login Details:
+        </td>
+        <td>
+            <div id="IsRequiredMessage" style="color:red; ">
+                [ not required ]
+            </div>
+            <div id="divProvideLoginInfo">
+                @Html.TextBox("tbxLoginUsername", (string)ViewBag.Username, new { style = "padding: 3px; width: 230px;  font-size: 12px" })<br />
+                @Html.Password("tbxLoginPassword", (string)ViewBag.Username, new { style = "padding: 3px; width: 230px;  font-size: 12px" })
+            </div>
+            <div id="canRedeem" style="vertical-align: auto">
+                <br/>
+                @Html.CheckBox("cbxCanRedeem", new { @text = "can redeem" ,@style = "color: red" }) i would like to redeem points 
+            </div>
+            <div id="useHighestCard" style="vertical-align: auto">
+                <br />
+                @Html.CheckBox("cbxCanRedeemHighest", new { @text = "can redeem", @style = "color: red" }) <span style="color: green">show previous transfer beneficiarys</span>
+            </div>
+            <div id="showUsers" style="vertical-align: auto">
+               
+            </div>
+            <div id="pleaseWait" style="display: none">
+                Please wait...
+            </div>
+        </td>
+    </tr>
+</table>

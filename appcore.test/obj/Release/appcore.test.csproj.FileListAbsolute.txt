@@ -1,0 +1,17 @@
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\db_config.xml
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\appcore.test.exe.config
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\appcore.test.exe
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\appcore.test.pdb
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\app.core.dll
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\System.Net.Http.dll
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\System.Web.Http.dll
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\System.Net.Http.Formatting.dll
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\Newtonsoft.Json.dll
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\app.core.pdb
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\System.Net.Http.xml
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\System.Web.Http.xml
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\System.Net.Http.Formatting.xml
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\bin\Release\Newtonsoft.Json.xml
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\obj\Release\appcore.test.csprojResolveAssemblyReference.cache
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\obj\Release\appcore.test.exe
+C:\Users\adeola\documents\visual studio 2013\Projects\app.core\appcore.test\obj\Release\appcore.test.pdb

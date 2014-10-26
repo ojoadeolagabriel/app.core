@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="localhost/testapp2" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\adeola\\documents\\visual\ studio\ 2013\\Projects\\app\.core\\test\.api\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\adeola\\documents\\visual\ studio\ 2013\\Projects\\app\.core\\test\.api\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=(LocalDb)\v11.0;Initial Catalog=aspnet-test.api-20141004205528;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\aspnet-test.api-20141004205528.mdf" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\adeola\\documents\\visual\ studio\ 2013\\Projects\\app\.core\\test\.api\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>
